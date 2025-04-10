@@ -1,7 +1,11 @@
 name: example-workflow
-on: workflow_dispatch
+
+on: 
+  workflow_dispatch:
+
 jobs:
- runs-on: ubuntu-latest
- steps:
-   run: echo "hello Abhishek"
-   
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo "hello Abhishek"
