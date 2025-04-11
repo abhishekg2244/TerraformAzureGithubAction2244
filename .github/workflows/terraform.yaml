@@ -29,7 +29,22 @@ jobs:
           ls
           terraform init
 
+      - name: Terraform validate
+        run: |
+          cd Terraform
+          terraform validate
+
+      - name: Terraform formatting
+        run: |
+          cd Terraform
+          terraform fmt
+          
       - name: Terraform Plan
         run: |
           cd Terraform
           terraform plan
+          
+      - name: Terraform apply
+        run: |
+          cd Terraform
+          terraform apply
