@@ -1,0 +1,2 @@
+rgname = "githubactionRG"
+rglocation = "eastus"
