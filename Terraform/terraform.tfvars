@@ -1,2 +1,2 @@
-rgname = "githubactionRG"
+rgname = "githubactionRGupdated"
 rglocation = "eastus"
