@@ -20,6 +20,9 @@ jobs:
       - name: terraform init
         run: |
              ls
+             cd terrafomr
+             ls
+             terraform init
        
 
       # - name: terraform plan
