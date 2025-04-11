@@ -1,6 +1,6 @@
 name: terraform_project  # name of workflow
 
-on:                           
+on:
   workflow_dispatch:  # Manually trigger Pipeline
 
 jobs:
@@ -17,16 +17,14 @@ jobs:
         with:
           terraform_version: 1.5.7
 
-      - name: terraform init
+      - name: Terraform Init
         run: |
-             ls
-             cd Terraform
-             ls
-             terraform init
-       
+          ls
+          cd Terraform
+          ls
+          terraform init
 
-      - name: terraform plan
+      - name: Terraform Plan
         run: |
-             terraform plan
-          
-        
+          cd Terraform
+          terraform plan
