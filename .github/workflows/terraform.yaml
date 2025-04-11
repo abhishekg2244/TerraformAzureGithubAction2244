@@ -18,9 +18,10 @@ jobs:
           terraform_version: 1.5.7
 
       - name: terraform init
+        run : ls
         run:  terraform init
 
-      - name: terraform plan
-        run: terraform plan
+      # - name: terraform plan
+      #   run: terraform plan
           
         
