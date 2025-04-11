@@ -20,7 +20,7 @@ jobs:
       - name: terraform init
         run: |
              ls
-             cd terrafomr
+             cd Terraform
              ls
              terraform init
        
