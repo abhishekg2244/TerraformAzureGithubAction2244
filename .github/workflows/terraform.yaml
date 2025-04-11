@@ -1,0 +1,19 @@
+name: terraform_project  # name of workflow
+
+on:                           
+  workflow_dispatch:  # Manually trigger Pipeline
+
+jobs:
+  my_job:
+    name: terraform-job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Terraform
+        uses: little-core-labs/install-terraform@v2.0.0
+        with:
+          version: 1.5.7
+    
