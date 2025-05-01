@@ -1,3 +1,12 @@
 name: s3_bucket_pipeline_by_githubaction
+on: [workflow_dispatch]
 
+jobs:
+   creation_s3_bucket:
+     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        
+      - name: Terraform Init
+        run: terraform init
 
