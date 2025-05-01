@@ -20,9 +20,17 @@ jobs:
   
         - name: Terraform plan
           run: |
+            ls
+            cd infraAWSS3bucket
+            ls
+            terraform init
             terraform plan
             
         - name: Terraform apply
           run: |
+             ls
+             cd infraAWSS3bucket
+             ls
+             terraform init
                terraform apply
 
