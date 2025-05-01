@@ -2,25 +2,27 @@ name: s3_bucket_pipeline_by_githubaction
 on: [workflow_dispatch]
 
 jobs:
-  name: terraform-job:
-   runs-on: self-hosted
+  s3bucketjob:
+     name: terraform-job
+     runs-on: self-hosted
 
-  steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        
-      - name: Terraform Init
-        run: |
-          ls
-          cd infraAWSS3bucket
-          ls
-          terraform init
 
-      - name: Terraform plan
-        run: |
-          terraform plan
+     steps:
+        - name: Checkout Code
+          uses: actions/checkout@v3
           
-      - name: Terraform apply
-        run: |
-             terraform apply
+        - name: Terraform Init
+          run: |
+            ls
+            cd infraAWSS3bucket
+            ls
+            terraform init
+  
+        - name: Terraform plan
+          run: |
+            terraform plan
+            
+        - name: Terraform apply
+          run: |
+               terraform apply
 
