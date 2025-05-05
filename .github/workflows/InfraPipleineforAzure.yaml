@@ -5,6 +5,11 @@ jobs:
    name: infra-provision
    runs-on:  self-hosted
    steps:
+
+########### clean runner temp directory for clean installation ###################
+     - name: Clean temp folder
+       run: Remove-Item -Path $env:RUNNER_TEMP\* -Recurse -Force -ErrorAction SilentlyContinue
+       shell: pwsh
 ################ Terraform Tool install #################################     
      - name: Terraform installer
        uses: autero1/action-terraform@v3.0.1
