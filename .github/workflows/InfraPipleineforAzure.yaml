@@ -20,6 +20,8 @@ jobs:
        run: |
          cd Environment
          ls
+         cd QA
+         Terraform init
         
                 
     
