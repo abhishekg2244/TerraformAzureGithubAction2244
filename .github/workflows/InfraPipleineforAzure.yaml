@@ -8,8 +8,9 @@ jobs:
 
 ########### clean runner temp directory for clean installation ###################
      - name: Clean temp folder
-       run: Remove-Item -Path $env:RUNNER_TEMP\* -Recurse -Force -ErrorAction SilentlyContinue
-       shell: pwsh
+       shell: powershell
+       run: |
+        Remove-Item -Path $env:RUNNER_TEMP\* -Recurse -Force -ErrorAction SilentlyContinue
 ################ Terraform Tool install #################################     
      - name: Terraform installer
        uses: autero1/action-terraform@v3.0.1
