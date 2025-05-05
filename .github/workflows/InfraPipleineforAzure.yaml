@@ -12,9 +12,19 @@ jobs:
          terraform --version
        
       
-################ Terraform Tool install #################################     
-     
-          
-          
+################ check Directory #################################    
+     - name: Checkout
+       uses: actions/checkout@v4.2.2
+################# Terraform init on Working directory ############
+     - name: Terraform init/plan
+       run: |
+         cd \Environment\QA
+         ls
+        
+                
+    
+         
+              
+              
           
           
