@@ -18,7 +18,7 @@ jobs:
 ################# Terraform init on Working directory ############
      - name: Terraform init/plan
        run: |
-         cd \Environment\QA
+         
          ls
         
                 
