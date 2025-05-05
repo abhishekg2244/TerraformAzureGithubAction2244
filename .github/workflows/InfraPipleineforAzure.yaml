@@ -1,1 +1,16 @@
 name: InfraPipleineforAzure.yaml
+on: [workflow_dispatch]
+jobs:
+  terraformjob:
+   name: infra-provision
+   runs-on:  self-hosted
+   steps:
+################ Terraform Tool install #################################     
+     - name: Terraform installer
+       uses: autero1/action-terraform@v3.0.1
+        with:
+          # Terraform version to install
+          terraform-version: 1.10.3
+          
+          
+          
