@@ -20,7 +20,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.infra }}
+          creds: ${{ secrets.AzureConnection }}
           
       - name: Terraform Init
         run: |
