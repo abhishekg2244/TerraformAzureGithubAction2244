@@ -1,5 +1,5 @@
 module "rg" {
-    source = ".."
+    source = "../../Modules/azurerm_rg"
     name = var.name
     location = var.location
     tags = var.tags
