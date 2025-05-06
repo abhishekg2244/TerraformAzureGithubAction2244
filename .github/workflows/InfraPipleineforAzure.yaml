@@ -33,7 +33,13 @@ jobs:
        run:  |
          cd Environment/QA
          terraform plan
-                
+
+################ Terraform plan ##############
+     - name: Terraform Apply
+       run:  |
+          cd Environment/QA
+          terraform apply
+                        
     
          
               
