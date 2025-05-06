@@ -6,19 +6,22 @@ jobs:
    runs-on:  self-hosted
    steps:
 
+################ check Directory #################################    
+     - name: Checkout
+       uses: actions/checkout@v4.2.2
+       
 ########### clean runner temp directory for clean installation ###################
-     - name: AzureAuthentication
-       uses: azure/login@v2
-       with:
-          creds: ${{secrets.AZURECONNECTION}}
+
+          
      - name: Terraformversioncheck
        run: |
          terraform --version
        
-      
-################ check Directory #################################    
-     - name: Checkout
-       uses: actions/checkout@v4.2.2
+     - name: AzureAuthentication
+       uses: azure/login@v2
+       with:
+          creds: ${{secrets.AZURECONNECTION}}   
+
 ################# Terraform init on Working directory ############
     
 
