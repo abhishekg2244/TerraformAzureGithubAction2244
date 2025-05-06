@@ -22,6 +22,12 @@ jobs:
          ls
          cd QA
          terraform init
+################## Azure Authentication ####################
+     - name: AzureAuthentication
+       uses: azure/login@v2
+       with:
+          creds: ${{ secrets.AZURECONNECTION }}
+       
 ################ Terraform plan ##############
      - name: Terraform Plan
        run:  |
