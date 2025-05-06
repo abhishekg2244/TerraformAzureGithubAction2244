@@ -16,13 +16,17 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v4.2.2
 ################# Terraform init on Working directory ############
-     - name: Terraform init/plan
+     - name: Terraform plan
        run: |
          cd Environment
          ls
          cd QA
-         Terraform init
-        
+         terraform init
+################ Terraform plan ##############
+     - name: Terraform Plan
+       run:  |
+         cd Environment/QA
+         terraform plan
                 
     
          
