@@ -39,6 +39,12 @@ jobs:
        run:  |
           cd Environment/QA
           terraform apply  --auto-approve
+################ Terraform plan ##############
+     - name: Terraform destroy
+       run:  |
+          cd Environment/QA
+          terraform destroy  --auto-approve
+                 
                         
     
          
