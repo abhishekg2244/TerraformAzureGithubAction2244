@@ -1,58 +1,47 @@
 name: InfraPipleineforAzure.yaml
+
 on: [workflow_dispatch]
+
 jobs:
   terraformjob:
-   name: infra-provision
-   runs-on:  self-hosted
-   steps:
+    name: infra-provision
+    runs-on: self-hosted
 
-################ check Directory #################################    
-     - name: Checkout
-       uses: actions/checkout@v4.2.2
-       
-########### clean runner temp directory for clean installation ###################
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.2.2
 
-          
-     - name: Terraformversioncheck
-       run: |
-         terraform --version
-       
-     - name: AzureAuthentication
-       uses: azure/login@v2
-       with:
-          creds: ${{secrets.AZURECONNECTION}}   
+    - name: Terraform version check
+      run: terraform --version
 
-################# Terraform init on Working directory ############
-    
+    - name: Azure Authentication
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURECONNECTION }}
 
-     - name: Terraform init
-       run: |
-              cd Environment
-              ls
-              cd QA
-              terraform init
-      
-################ Terraform plan ##############
-     - name: Terraform Plan
-       run:  |
-         cd Environment/QA
-         terraform plan
+    - name: Set Terraform Azure Environment Variables
+      run: |
+        echo "ARM_CLIENT_ID=${{ fromJson(secrets.AZURECONNECTION).clientId }}" >> $GITHUB_ENV
+        echo "ARM_CLIENT_SECRET=${{ fromJson(secrets.AZURECONNECTION).clientSecret }}" >> $GITHUB_ENV
+        echo "ARM_SUBSCRIPTION_ID=${{ fromJson(secrets.AZURECONNECTION).subscriptionId }}" >> $GITHUB_ENV
+        echo "ARM_TENANT_ID=${{ fromJson(secrets.AZURECONNECTION).tenantId }}" >> $GITHUB_ENV
 
-################ Terraform plan ##############
-     - name: Terraform Apply
-       run:  |
-          cd Environment/QA
-          terraform apply  --auto-approve
-################ Terraform plan ##############
-     - name: Terraform destroy
-       run:  |
-          cd Environment/QA
-          terraform destroy  --auto-approve
-                 
-                        
-    
-         
-              
-              
-          
-          
+    - name: Terraform Init
+      run: |
+        cd Environment/QA
+        terraform init
+
+    - name: Terraform Plan
+      run: |
+        cd Environment/QA
+        terraform plan
+
+    - name: Terraform Apply
+      run: |
+        cd Environment/QA
+        terraform apply --auto-approve
+
+    - name: Terraform Destroy
+      run: |
+        cd Environment/QA
+        terraform destroy --auto-approve
