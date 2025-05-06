@@ -5,6 +5,13 @@ terraform {
       version = "4.27.0"
     }
   }
+
+backend "azurerm" {
+    resource_group_name  = "testrg"
+    storage_account_name = "tfstateaajka"
+    container_name       = "aajkacontainer"
+    key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
