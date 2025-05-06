@@ -38,7 +38,7 @@ jobs:
      - name: Terraform Apply
        run:  |
           cd Environment/QA
-          terraform apply
+          terraform apply  --auto-approve
                         
     
          
