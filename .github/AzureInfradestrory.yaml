@@ -1,3 +1,36 @@
 name: AzureInfradestrory.yaml
+on : [workflow_dispatch]
+jobs:
+  terraformdestroy:
+    name: destroy-infra
+    runs-on: self-hosted
+    steps:
+########### clean runner temp directory for clean installation ###################
+     - name: Terraformversioncheck
+       run: |
+         terraform --version
+       
+      
+################ check Directory #################################    
+     - name: Checkout
+       uses: actions/checkout@v4.2.2
+################# Terraform init on Working directory ############
+     - name: Terraform plan
+       run: |
+         cd Environment
+         ls
+         cd QA
+         terraform init
+################## Azure Authentication ####################
+     - name: AzureAuthentication
+       uses: azure/login@v2
+       with:
+          creds: ${{ secrets.AZURECONNECTION }}
+################ Terraform plan ##############
+     - name: Terraform destroy
+       run:  |
+         cd Environment/QA
+         terraform destroy --auto-approve
+         
 
 
