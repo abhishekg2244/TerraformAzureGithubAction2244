@@ -7,6 +7,10 @@ jobs:
    steps:
 
 ########### clean runner temp directory for clean installation ###################
+     - name: AzureAuthentication
+       uses: azure/login@v2
+       with:
+          creds: ${{secrets.AZURECONNECTION}}
      - name: Terraformversioncheck
        run: |
          terraform --version
@@ -16,10 +20,7 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v4.2.2
 ################# Terraform init on Working directory ############
-     - name: AzureAuthentication
-       uses: azure/login@v2
-       with:
-          creds: ${{ secrets.AZURECONNECTION }}
+    
 
      - name: Terraform init
        run: |
