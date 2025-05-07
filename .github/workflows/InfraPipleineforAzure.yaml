@@ -31,6 +31,7 @@ jobs:
       - name: Terraform Plan
         shell: powershell
         run: |
+          terraform init
           terraform plan -out=tfplan
         working-directory: ./Environment/QA
 
