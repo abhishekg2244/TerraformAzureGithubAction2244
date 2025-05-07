@@ -4,7 +4,7 @@ on:
   workflow_dispatch:  # Manual trigger only (same as "trigger: none")
 
 jobs:
-  terraform-init:
+  infraprovision:
     runs-on: self-hosted
 
     steps:
@@ -20,7 +20,19 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          # enable-AzPSSession: true
           
-
+      - name: Terraform init azurerm backend
+        
+        uses: ahmedig/terraform-azurerm-backend@v4
+        with:   
+           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}    
+           resource_group_name: testrg   
+           container_name: tfstatecontainer
+           storage_account_name: tfstatestorageacc24      
+           subscription_id: dcb52f24-3382-4902-9301-084ebd8ec819
+                
+           tf_working_directory: ./Environment/QA
+                      
+                      
       
+            
