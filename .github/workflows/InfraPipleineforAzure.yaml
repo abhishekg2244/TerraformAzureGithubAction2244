@@ -15,5 +15,11 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.7  # Or whatever version you need
+          
+      - name: Azure Login action
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
 
       
