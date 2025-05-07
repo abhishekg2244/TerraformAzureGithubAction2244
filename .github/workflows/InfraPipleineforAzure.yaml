@@ -1,26 +1,45 @@
 name: azureinfraBygithubaction
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:  # Trigger manually from the GitHub UI
+
 jobs:
   terraform:
-    runs-on: self-hosted  
+    runs-on: self-hosted  # Running on a self-hosted Windows runner
     steps:
+      # Step 1: Checkout repository code
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+
+      # Step 2: Azure login using Service Principal
       - name: Azure Login action
         uses: azure/login@v2
         with:
-           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Step 3: Terraform init with Azurerm backend configuration
       - name: Terraform init azurerm backend
         uses: ahmedig/terraform-azurerm-backend@v4
         with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}  # Use the same secret as Azure Login step
           resource_group_name: testrg
           storage_account_name: mystorageaccount
           container_name: tfstate
           key: terraform.tfstate
+
+      # Step 4: Terraform Plan
+      - name: Terraform Plan
+        shell: powershell
+        run: |
+          terraform plan -out=tfplan
+        working-directory: ./Environment/QA
+
+      # Step 5: Terraform Apply (manual approval before apply)
+      - name: Terraform Apply
+        shell: powershell
+        run: |
+          terraform apply -auto-approve tfplan
+        working-directory: ./Environment/QA
                  
 # # Step 2: Azure Service Principal authentication
 #       - name: Azure Service Principal authentication
