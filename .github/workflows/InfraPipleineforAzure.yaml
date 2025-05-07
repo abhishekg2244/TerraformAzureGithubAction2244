@@ -2,36 +2,51 @@ name: azureinfraBygithubaction
 
 on:
   workflow_dispatch:  # Manual trigger only (same as "trigger: none")
-
 jobs:
-  infraprovision:
-    runs-on: self-hosted
-
+  terraform:
+    runs-on: self-hosted  # Make sure this maps to your Windows runner
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.5.7  # Or whatever version you need
+      - name: Terraform Init with backend config
+        shell: powershell
+        run: |
+          terraform init `
+            -backend-config="resource_group_name=testrg" `
+            -backend-config="storage_account_name=tfstatestorageacc24" `
+            -backend-config="container_name=tfstatecontainer" `
+            -backend-config="key=terraform1.tfstate"
+        working-directory: ./Environment/QA
+# jobs:
+#   infraprovision:
+#     runs-on: self-hosted
+
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v4
+
+#       - name: Set up Terraform
+#         uses: hashicorp/setup-terraform@v3
+#         with:
+#           terraform_version: 1.5.7  # Or whatever version you need
           
-      - name: Azure Login action
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#       - name: Azure Login action
+#         uses: azure/login@v2
+#         with:
+#           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
-      - name: Terraform init azurerm backend
+#       - name: Terraform init azurerm backend
         
-        uses: ahmedig/terraform-azurerm-backend@v4
-        with:   
-           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}    
-           resource_group_name: testrg   
-           container_name: tfstatecontainer
-           storage_account_name: tfstatestorageacc24      
-           subscription_id: dcb52f24-3382-4902-9301-084ebd8ec819
+#         uses: ahmedig/terraform-azurerm-backend@v4
+#         with:   
+#            azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}    
+#            resource_group_name: testrg   
+#            container_name: tfstatecontainer
+#            storage_account_name: tfstatestorageacc24      
+#            subscription_id: dcb52f24-3382-4902-9301-084ebd8ec819
                 
-           tf_working_directory: ./Environment/QA
+#            tf_working_directory: ./Environment/QA
                       
                       
       
